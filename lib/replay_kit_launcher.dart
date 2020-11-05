@@ -21,12 +21,12 @@ class ReplayKitLauncher {
   /// That is, invoke `-[RPBroadcastSampleHandler finishBroadcastWithError:]` when received the notification
   ///
   /// For specific implementation, please refer to `example/ios/BroadcastDemoExtension/SampleHandler.m`
-  static Future<bool> finishReplayKitProcess(String notificationName) async {
+  static Future<bool> finishReplayKitBroadcast(String notificationName) async {
     if (notificationName == null || notificationName.length <= 0) {
       return false;
     }
 
     return await _channel.invokeMethod(
-        'finishReplayKitProcess', {'notificationName': notificationName});
+        'finishReplayKitBroadcast', {'notificationName': notificationName});
   }
 }

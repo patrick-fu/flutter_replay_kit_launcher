@@ -15,7 +15,7 @@
 
         [self launchReplayKitBroadcast:call.arguments[@"extensionName"] result:result];
 
-    } else if ([@"finishReplayKitProcess" isEqualToString:call.method]) {
+    } else if ([@"finishReplayKitBroadcast" isEqualToString:call.method]) {
 
         NSString *notificationName = call.arguments[@"notificationName"];
         CFNotificationCenterPostNotification(CFNotificationCenterGetDarwinNotifyCenter(), (CFStringRef)notificationName, NULL, nil, YES);
