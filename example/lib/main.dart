@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'dart:async';
 
-import 'package:flutter/services.dart';
 import 'package:replay_kit_launcher/replay_kit_launcher.dart';
 
 void main() {
@@ -26,17 +24,22 @@ class _MyAppState extends State<MyApp> {
     ReplayKitLauncher.launchReplayKitBroadcast('BroadcastDemoExtension');
   }
 
+  void finish() {
+    // Please fill in the CFNotification name in your project
+    ReplayKitLauncher.finishReplayKitBroadcast('ZGFinishBroadcastUploadExtensionProcessNotification');
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Plugin example app'),
+          title: const Text('ReplayKit Launcher example'),
         ),
         body: Center(
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 40.0),
-            child: Column(
+            child: ListView(
               children: [
                 Padding(padding: const EdgeInsets.only(top: 50.0)),
                 Text('Only support iOS (12.0 or above)'),
@@ -55,7 +58,7 @@ class _MyAppState extends State<MyApp> {
                     color: Color(0xff0e88eb),
                   ),
                   width: 240.0,
-                  height: 60.0,
+                  height: 50.0,
                   child: CupertinoButton(
                     child: Text('Launch ReplayKit',
                       style: TextStyle(
@@ -63,6 +66,24 @@ class _MyAppState extends State<MyApp> {
                       ),
                     ),
                     onPressed: launch,
+                  ),
+                ),
+                Padding(padding: const EdgeInsets.only(top: 20.0)),
+                Container(
+                  padding: const EdgeInsets.all(0.0),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12.0),
+                    color: Color(0xff0e88eb),
+                  ),
+                  width: 240.0,
+                  height: 50.0,
+                  child: CupertinoButton(
+                    child: Text('Finish ReplayKit',
+                      style: TextStyle(
+                        color: Colors.white
+                      ),
+                    ),
+                    onPressed: finish,
                   ),
                 )
               ],
