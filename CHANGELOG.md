@@ -1,3 +1,7 @@
+## 0.2.0+1
+
+* Update README
+
 ## 0.2.0
 
 * Add `finishReplayKitBroadcast` function
