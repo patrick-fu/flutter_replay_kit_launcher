@@ -1,6 +1,6 @@
 PODS:
   - Flutter (1.0.0)
-  - replay_kit_launcher (0.0.1):
+  - replay_kit_launcher (0.3.0):
     - Flutter
 
 DEPENDENCIES:
@@ -14,9 +14,9 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/replay_kit_launcher/ios"
 
 SPEC CHECKSUMS:
-  Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
-  replay_kit_launcher: e2b85653d7ee455d067abc1a74c4feb8574087d4
+  Flutter: 434fef37c0980e73bb6479ef766c45957d4b510c
+  replay_kit_launcher: 9c6874fe17ce278a6f0e99e3698acf194480e9a2
 
 PODFILE CHECKSUM: 8e679eca47255a8ca8067c4c67aab20e64cb974d
 
-COCOAPODS: 1.10.0.rc.1
+COCOAPODS: 1.10.1
