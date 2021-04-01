@@ -1,3 +1,7 @@
+## 0.3.0
+
+* Migrated to null safety, and the minimum supported dart sdk version is upgraded to 2.12.0
+
 ## 0.2.0+1
 
 * Update README
