@@ -79,8 +79,11 @@ void onBroadcastFinish(CFNotificationCenterRef center, void *observer, CFStringR
 
     RPBroadcastSampleHandler *handler = [ZGBroadcastManager sharedManager].sampleHandler;
     if (handler) {
-        // Finish broadcast extension process
-        [handler finishBroadcastWithError:[[NSError alloc] initWithDomain:NSCocoaErrorDomain code:0 userInfo:nil]];
+        // Finish broadcast extension process with no error
+        #pragma clang diagnostic push
+        #pragma clang diagnostic ignored "-Wnonnull"
+        [handler finishBroadcastWithError:nil];
+        #pragma clang diagnostic pop
     } else {
         NSLog(@"⚠️ RPBroadcastSampleHandler is null, can not stop broadcast upload extension process");
     }
