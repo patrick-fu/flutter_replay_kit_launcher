@@ -1,6 +1,6 @@
 name: replay_kit_launcher
 description: A flutter plugin of the launcher used to open RPSystemBroadcastPickerView for iOS
-version: 0.3.0
+version: 1.0.0
 homepage: https://github.com/patrick-fu/flutter_replay_kit_launcher
 
 environment:

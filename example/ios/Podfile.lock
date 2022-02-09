@@ -1,6 +1,6 @@
 PODS:
   - Flutter (1.0.0)
-  - replay_kit_launcher (0.3.0):
+  - replay_kit_launcher (1.0.0):
     - Flutter
 
 DEPENDENCIES:
@@ -15,7 +15,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Flutter: 50d75fe2f02b26cc09d224853bb45737f8b3214a
-  replay_kit_launcher: 9c6874fe17ce278a6f0e99e3698acf194480e9a2
+  replay_kit_launcher: 828739da18c9785d5e9aafd4f075ea11d6b61499
 
 PODFILE CHECKSUM: 8e679eca47255a8ca8067c4c67aab20e64cb974d
 
