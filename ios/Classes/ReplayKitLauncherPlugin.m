@@ -1,12 +1,33 @@
 #import "ReplayKitLauncherPlugin.h"
 #import <ReplayKit/ReplayKit.h>
 
-@implementation ReplayKitLauncherPlugin
+static NSString *const kStatusChannel = @"replay_kit_launcher/status";
+static NSString *const kStartChannel = @"replay_kit_launcher/start";
+static NSString *const kStopChannel = @"replay_kit_launcher/stop";
 
+
+@implementation ReplayKitLauncherPlugin{
+    FlutterEventSink eventSink;
+}
+
+static id _instance;
+
++ (ReplayKitLauncherPlugin *)sharedInstance {
+  if (_instance == nil) {
+    _instance = [[ReplayKitLauncherPlugin alloc] init];
+  }
+  return _instance;
+}
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
       FlutterMethodChannel* channel = [FlutterMethodChannel methodChannelWithName:@"replay_kit_launcher" binaryMessenger:[registrar messenger]];
-      ReplayKitLauncherPlugin* instance = [[ReplayKitLauncherPlugin alloc] init];
+      ReplayKitLauncherPlugin *instance = [ReplayKitLauncherPlugin sharedInstance];
+      
       [registrar addMethodCallDelegate:instance channel:channel];
+
+      FlutterEventChannel *statusChannel =
+      [FlutterEventChannel eventChannelWithName:kStatusChannel
+                                binaryMessenger:[registrar messenger]];
+      [statusChannel setStreamHandler:instance];
 }
 
 - (void)handleMethodCall:(FlutterMethodCall*)call result:(FlutterResult)result {
@@ -70,6 +91,47 @@
     }
 
 }
+- (FlutterError *_Nullable)onListenWithArguments:(id _Nullable)arguments
+                                       eventSink:(nonnull FlutterEventSink)eventSinks {
+  eventSink = eventSinks;
+    CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(),
+                                  (__bridge const void *)(self),
+                                  onStart,
+                                  (CFStringRef)kStartChannel,
+                                  NULL,
+                                  CFNotificationSuspensionBehaviorDeliverImmediately);
+     CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(),
+                                  (__bridge const void *)(self),
+                                  onStop,
+                                  (CFStringRef)kStopChannel,
+                                  NULL,
+                                  CFNotificationSuspensionBehaviorDeliverImmediately);
+  return nil;
+}
 
+- (FlutterError *_Nullable)onCancelWithArguments:(id _Nullable)arguments {
+    CFNotificationCenterRemoveObserver(CFNotificationCenterGetDarwinNotifyCenter(),
+                                       (__bridge const void *)(self),
+                                       (CFStringRef)kStartChannel,
+                                       NULL);
+    CFNotificationCenterRemoveObserver(CFNotificationCenterGetDarwinNotifyCenter(),
+                                       (__bridge const void *)(self),
+                                       (CFStringRef)kStopChannel,
+                                       NULL);
+  eventSink = nil;
+  return nil;
+}
+
+
+- (void) sendStatus:(NSString *)status{
+    eventSink(status);
+}
+
+void onStart(CFNotificationCenterRef center, void *observer, CFStringRef name, const void *object, CFDictionaryRef userInfo) {
+    [[ReplayKitLauncherPlugin sharedInstance] sendStatus:@"0"];
+}
+void onStop(CFNotificationCenterRef center, void *observer, CFStringRef name, const void *object, CFDictionaryRef userInfo) {
+    [[ReplayKitLauncherPlugin sharedInstance] sendStatus:@"1"];
+}
 
 @end
